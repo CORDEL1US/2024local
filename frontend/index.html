@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .message {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Enter your ID">
+    <input type="password" id="password" placeholder="Enter your Password">
+    <button onclick="login()">Login</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    async function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch(`/login?username=${username}&password=${password}`);
+      const data = await response.json();
+
+      const messageContainer = document.getElementById('message');
+      if (response.ok) {
+        messageContainer.innerHTML = `<p><strong>Login successful!</strong> Welcome, ${username}.</p>`;
+      } else {
+        messageContainer.innerHTML = `<p><strong>Login failed!</strong> Please check your username and password.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
+
